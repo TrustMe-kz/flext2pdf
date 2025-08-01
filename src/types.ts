@@ -11,9 +11,9 @@ export type PDF = Buffer;
 // Base Struct Types
 
 export type Flext2Pdf = {
-    get: Flext2PdfHandler,
-    fromFlext: Flext2PdfHandler,
-    fromFlextTemplate: FlextTemplate2PdfHandler,
+    pdf: Flext2PdfHandler,
+    flextToPdf: Flext2PdfHandler,
+    templateToPdf: FlextTemplate2PdfHandler,
     clear: Flext2PdfClearHandler,
 };
 
