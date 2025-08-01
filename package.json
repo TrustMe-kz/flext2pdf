@@ -1,0 +1,53 @@
+{
+  "name": "flext2pdf",
+  "version": "1.0.0",
+  "description": "A Powerful Templating Engine",
+  "keywords": [ "templates", "templating engine", "handlebars", "flext to pdf" ],
+  "type": "module",
+  "browser": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./index.css": "./dist/index.css"
+  },
+  "bin": {
+    "flext2pdf": "./bin/run.mjs"
+  },
+  "scripts": {
+    "build:types": "tsc && tsc-alias",
+    "build": "bin/build.mjs && npm run build:types",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist/"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "author": "Kenny Romanov",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.28.0",
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.27.1",
+    "@handlebars/parser": "^2.2.0",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^24.1.0",
+    "esbuild": "^0.25.8",
+    "esbuild-plugin-import-glob": "^0.1.1",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@trustme24/flext": "^1.1.5",
+    "chromium-bidi": "^7.2.0",
+    "minimist": "^1.2.8",
+    "playwright-core": "^1.54.1"
+  }
+}
