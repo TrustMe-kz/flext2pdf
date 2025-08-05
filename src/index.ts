@@ -29,7 +29,16 @@ export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
     // Defining the functions
 
     const templateToPdf: FlextTemplate2PdfHandler = async (val: string, options: any = {}): Promise<PDF> => {
+        const data = options?.data ?? null;
+
+
+        // Getting the flext
+
         const flext = new Flext().setTemplate(val);
+
+        if (data) flext.setData(data);
+
+
         return await flextToPdfBuffer(flext, page, options);
     };
 
