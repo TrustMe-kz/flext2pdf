@@ -1,6 +1,6 @@
 {
   "name": "flext2pdf",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Powerful Templating Engine",
   "keywords": [ "templates", "templating engine", "handlebars", "flext to pdf" ],
   "type": "module",
@@ -45,8 +45,8 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@trustme24/flext": "^1.1.5",
-    "chromium-bidi": "^7.2.0",
+    "@trustme24/flext": "^1.2.0",
+    "chromium-bidi": "^7.3.1",
     "minimist": "^1.2.8",
     "playwright-core": "^1.54.2"
   }
