@@ -23,30 +23,51 @@ export async function flextToPdfBuffer(val: Flext, page: Page, options: Obj = {}
 
 export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
     const browser: Browser = options?.browser ?? await chromium.launch();
-    const page: Page = options?.page ?? await browser.newPage();
 
 
     // Defining the functions
 
-    const templateToPdf: FlextTemplate2PdfHandler = async (val: string, options: any = {}): Promise<PDF> => {
+    const hbsToPdf: FlextTemplate2PdfHandler = async (val: string, options: any = {}): Promise<PDF> => {
+        const page: Page = options?.page ?? await browser.newPage();
         const data = options?.data ?? null;
+        const isCustomPage = !!options?.page;
 
 
-        // Getting the flext
+        // Getting the Flext
 
         const flext = new Flext().setTemplate(val);
 
         if (data) flext.setData(data);
 
 
-        return await flextToPdfBuffer(flext, page, options);
+        // Getting the PDF
+
+        const result = await flextToPdfBuffer(flext, page, options);
+
+        if (!isCustomPage) await page.close();
+
+
+        return result;
     };
 
     const flextToPdf: Flext2PdfHandler = async (val: Flext | string, options: any = {}): Promise<PDF> => {
+
+        // If the value is a string
+
         if (typeof val === 'string')
-            return await templateToPdf(val, options);
-        else
-            return await flextToPdfBuffer(val, page, options);
+            return await hbsToPdf(val, options);
+
+
+        // If the value is Flext
+
+        const page: Page = options?.page ?? await browser.newPage();
+        const result = await flextToPdfBuffer(val, page, options);
+        const isCustomPage = !!options?.page;
+
+        if (!isCustomPage) await page.close();
+
+
+        return result;
     };
 
     const pdf = flextToPdf;
@@ -54,7 +75,7 @@ export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
     const clear: Flext2PdfClearHandler = async (): Promise<void> => await browser.close();
 
 
-    return { pdf, flextToPdf, templateToPdf, clear };
+    return { pdf, flextToPdf, hbsToPdf, clear };
 }
 
 
