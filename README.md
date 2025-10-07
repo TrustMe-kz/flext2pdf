@@ -1,7 +1,7 @@
 ## flext2pdf
 
 [![Static Badge](https://img.shields.io/badge/GitHub-Star%20%280%29-yellow?logo=github)](https://github.com/TrustMe-kz/flext2pdf)
-[![Static Badge](https://img.shields.io/badge/NPM-Download%20%28379%29-blue)](https://www.npmjs.com/package/vue-flext)
+[![Static Badge](https://img.shields.io/badge/NPM-Download%20%28379%29-blue)](https://www.npmjs.com/package/flext2pdf)
 
 
 **flext2pdf** converts [Flext](https://www.npmjs.com/package/@trustme24/flext) templates into PDFs using [Playwright](https://playwright.dev/). It launches a headless Chromium instance to render your HTML and returns the resulting file through a tiny API. The library ships with ESM and CJS bundles.
