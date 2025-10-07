@@ -1,5 +1,9 @@
 ## flext2pdf
 
+[![Static Badge](https://img.shields.io/badge/GitHub-Star%20%280%29-yellow?logo=github)](https://github.com/TrustMe-kz/flext2pdf)
+[![Static Badge](https://img.shields.io/badge/NPM-Download%20%28379%29-blue)](https://www.npmjs.com/package/vue-flext)
+
+
 **flext2pdf** converts [Flext](https://www.npmjs.com/package/@trustme24/flext) templates into PDFs using [Playwright](https://playwright.dev/). It launches a headless Chromium instance to render your HTML and returns the resulting file through a tiny API. The library ships with ESM and CJS bundles.
 
 Flext2PDF is maintained by [TrustMe](https://trustme24.com/).
@@ -10,9 +14,9 @@ import flext2pdf from 'flext2pdf';
 
 const template = `
   {{!-- @use "put" --}}
-  <div>{{ put data.message }}</div>
+  <div>{{ put data.helloWorld "No hello world..." }}</div>
 `;
-const data = { message: 'Hello World!' };
+const data = { helloWorld: 'Hello World!' };
 
 const converter = await flext2pdf();
 const pdf = await converter.pdf(template, { data });
