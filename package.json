@@ -1,8 +1,8 @@
 {
   "name": "flext2pdf",
-  "version": "1.0.3",
+  "version": "1.1.1",
   "description": "A Powerful Templating Engine",
-  "keywords": [ "templates", "templating engine", "handlebars", "flext to pdf" ],
+  "keywords": ["templates", "templating engine", "handlebars", "flext to pdf"],
   "type": "module",
   "browser": false,
   "main": "dist/index.js",

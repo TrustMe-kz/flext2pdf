@@ -13,7 +13,7 @@ export type PDF = Buffer;
 export type Flext2Pdf = {
     pdf: Flext2PdfHandler,
     flextToPdf: Flext2PdfHandler,
-    templateToPdf: FlextTemplate2PdfHandler,
+    hbsToPdf: FlextTemplate2PdfHandler,
     clear: Flext2PdfClearHandler,
 };
 

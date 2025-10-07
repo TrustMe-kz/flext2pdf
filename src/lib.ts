@@ -43,6 +43,11 @@ export async function htmlToPdfBuffer(val: string, page: Page, options: any = {}
     // Getting the options
 
     const format = options?.format ?? DEFAULT_FORMAT;
+    const margins = options?.margins ?? {};
+    const topMargin = margins?.top ?? 0;
+    const leftMargin = margins?.left ?? 0;
+    const rightMargin = margins?.right ?? 0;
+    const bottomMargin = margins?.bottom ?? 0;
     const background = options?.background ?? true;
 
 
@@ -55,6 +60,12 @@ export async function htmlToPdfBuffer(val: string, page: Page, options: any = {}
 
     return await page.pdf({
         format: format,
+        margin: {
+            top: topMargin,
+            left: leftMargin,
+            right: rightMargin,
+            bottom: bottomMargin,
+        },
         printBackground: Boolean(background),
     });
 }
