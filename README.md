@@ -13,6 +13,7 @@ Flext2PDF is maintained by [TrustMe](https://trustme24.com/).
 import flext2pdf from 'flext2pdf';
 
 const template = `
+  {{!-- @v "1.0.beta3" --}}
   {{!-- @use "put" --}}
   <div>{{ put data.helloWorld "No hello world..." }}</div>
 `;
@@ -28,7 +29,7 @@ await converter.clear();
 1. Install **dependencies**:
 
 ```shell
-npm i flext2pdf
+npm i flext2pdf @trustme24/flext
 npx flext2pdf install chromium
 ```
 
