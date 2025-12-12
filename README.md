@@ -6,7 +6,9 @@
 
 **flext2pdf** converts [Flext](https://www.npmjs.com/package/@trustme24/flext) templates into PDFs using [Playwright](https://playwright.dev/). It launches a headless Chromium instance to render your HTML and returns the resulting file through a tiny API. The library ships with ESM and CJS bundles.
 
-Flext2PDF is maintained by [TrustMe](https://trustme24.com/).
+[Documentation: Available at TrustMe Wiki](https://trustmekz.atlassian.net/wiki/external/MTUwYzM5NjUzNDE4NDViMGJlMTliOWEzNzM1Y2RiZWE).
+
+[flext2pdf is maintained by TrustMe](https://trustme24.com/).
 
 ### Here's a simple example:
 ```ts
