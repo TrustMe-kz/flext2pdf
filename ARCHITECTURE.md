@@ -2,7 +2,7 @@
 
 [< README.md](https://github.com/TrustMe-kz/flext2pdf/blob/main/README.md)
 
-![trustme24_flext_cover.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext/ae3284e6156dd8b18e1998084943636e50cd64a2/docs/trustme24_flext_logo_cover.jpg)
+![trustme24_flext_cover.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext2pdf/9908c181702d01f9559f56fbab242028500c3886/docs/trustme24_flext_logo_cover.jpg)
 
 This document explains how **flext2pdf** is built internally.
 

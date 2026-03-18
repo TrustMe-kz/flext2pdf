@@ -11,7 +11,7 @@ esbuild.build({
     bundle: true,
     platform: 'node',
     format: 'cjs',
-    sourcemap: false,
+    sourcemap: true,
     minify: true,
     plugins: [ babelPlugin() ],
 }).catch(() => process.exit(1));
@@ -24,6 +24,6 @@ esbuild.build({
     bundle: true,
     platform: 'node',
     format: 'esm',
-    sourcemap: false,
+    sourcemap: true,
     minify: true,
 }).catch(() => process.exit(1));

@@ -1,6 +1,6 @@
 {
   "name": "flext2pdf",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A Powerful Templating Engine",
   "keywords": ["templates", "templating engine", "handlebars", "flext to pdf"],
   "repository": "https://github.com/TrustMe-kz/flext2pdf.git",
@@ -36,12 +36,12 @@
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
     "@babel/preset-typescript": "^7.28.5",
     "@handlebars/parser": "^2.2.2",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^25.3.0",
-    "esbuild": "^0.27.3",
+    "@types/node": "^25.5.0",
+    "esbuild": "^0.27.4",
     "esbuild-plugin-import-glob": "^0.1.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3"

@@ -3,7 +3,7 @@
 [![Static Badge](https://img.shields.io/badge/GitHub-Star%20%281%29-yellow?logo=github)](https://github.com/TrustMe-kz/flext2pdf)
 [![Static Badge](https://img.shields.io/badge/NPM-Download%20%281765%29-blue)](https://www.npmjs.com/package/flext2pdf)
 
-![trustme24_flext_cover.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext/ae3284e6156dd8b18e1998084943636e50cd64a2/docs/trustme24_flext_logo_cover.jpg)
+![trustme24_flext_cover.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext2pdf/9908c181702d01f9559f56fbab242028500c3886/docs/trustme24_flext_logo_cover.jpg)
 
 **flext2pdf** is a PDF rendering layer for the Flext ecosystem.
 
@@ -36,7 +36,7 @@ PDF generation often looks simple at first. Over time it tends to accumulate hid
 
 Typical issues include: duplicated rendering logic outside the template, inconsistent output across environments, fragile browser setup, weak control over print layout, and unnecessary divergence between preview and final PDF.
 
-![trustme24_flext_abstract_painting.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext/ae3284e6156dd8b18e1998084943636e50cd64a2/docs/trustme24_flext_abstract_painting.jpg)
+![trustme24_flext_abstract_painting.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext2pdf/9908c181702d01f9559f56fbab242028500c3886/docs/trustme24_flext_abstract_painting.jpg)
 
 ### A few common scenarios illustrate the problem:
 
@@ -85,7 +85,7 @@ await converter.clear();
 
 ## Use Cases
 
-![trustme24_flext_use_cases.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext/ae3284e6156dd8b18e1998084943636e50cd64a2/docs/trustme24_flext_use_cases.jpg)
+![trustme24_flext_use_cases.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext2pdf/9908c181702d01f9559f56fbab242028500c3886/docs/trustme24_flext_use_cases.jpg)
 
 **flext2pdf** is intended for structured document export inside the Flext ecosystem. Common examples include contracts, invoices, reports, certificates, internal document workflows, backend PDF generation, batch rendering, and document microservices.
 
@@ -186,7 +186,7 @@ npm run lint
 
 Future development focuses on improving reliability and adoption. Planned areas include stronger production guidance, better rendering controls, clearer browser lifecycle patterns, richer documentation, ecosystem integrations, performance optimizations, and more example-driven usage for services and CI pipelines.
 
-![trustme24_flext_abstract_painting.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext/ae3284e6156dd8b18e1998084943636e50cd64a2/docs/trustme24_flext_abstract_painting.jpg)
+![trustme24_flext_abstract_painting.jpg](https://raw.githubusercontent.com/TrustMe-kz/flext2pdf/9908c181702d01f9559f56fbab242028500c3886/docs/trustme24_flext_abstract_painting.jpg)
 
 * **Contributions** are welcome. Useful areas include documentation, examples, rendering improvements, browser reuse patterns, performance optimizations, and test coverage. Changes that affect the rendering contract or core behavior should first be discussed in issues so architectural decisions remain consistent.
 
