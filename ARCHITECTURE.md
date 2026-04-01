@@ -346,7 +346,7 @@ This repository should stay narrow.
 The following concerns belong somewhere else:
 
 * Flext AST parsing
-* Directive parsing such as `@v`, `@use`, `@field`, `@lang`
+* Directive parsing such as `@syntax`, `@use`, `@field`, `@lang`
 * Data Model generation
 * Validation architecture
 * Document workflow logic

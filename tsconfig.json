@@ -1,8 +1,8 @@
 {
+  "exclude": [ "dist/*" ],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": [ "src/*" ]
+      "@/*": [ "./src/*" ]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -16,6 +16,7 @@
     "noImplicitAny": false,
 
     /* Bundler mode */
+    "rootDir": "src",
     "outDir": "dist",
     "moduleResolution": "node",
     "isolatedModules": true,
@@ -29,7 +30,8 @@
     "strictNullChecks": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "ignoreDeprecations": "6.0"
   },
   "include": [ "src/**/*.ts", "src/**/*.d.ts" ]
 }

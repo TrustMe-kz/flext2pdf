@@ -69,7 +69,7 @@ This approach helps systems keep document rendering predictable while remaining 
 import flext2pdf from 'flext2pdf';
 
 const template = `
-  {{!-- @v "1.0.beta4" --}}
+  {{!-- @syntax "1.0" --}}
   {{!-- @use "put" --}}
   <div>{{ put data.helloWorld "No hello world..." }}</div>
 `;
