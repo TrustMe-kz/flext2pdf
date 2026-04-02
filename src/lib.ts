@@ -6,6 +6,8 @@ import baseHtml from './base.html.tpl';
 
 export const DEFAULT_FORMAT = 'A4';
 
+export const DEFAULT_MARGINS = 0;
+
 
 // Functions
 
@@ -44,10 +46,10 @@ export async function htmlToPdfBuffer(val: string, page: Page, options: any = {}
 
     const format = options?.format ?? DEFAULT_FORMAT;
     const margins = options?.margins ?? {};
-    const topMargin = margins?.top ?? 0;
-    const leftMargin = margins?.left ?? 0;
-    const rightMargin = margins?.right ?? 0;
-    const bottomMargin = margins?.bottom ?? 0;
+    const topMargin = margins?.top ?? DEFAULT_MARGINS;
+    const leftMargin = margins?.left ?? DEFAULT_MARGINS;
+    const rightMargin = margins?.right ?? DEFAULT_MARGINS;
+    const bottomMargin = margins?.bottom ?? DEFAULT_MARGINS;
     const background = options?.background ?? true;
 
 

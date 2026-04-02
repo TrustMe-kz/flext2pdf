@@ -18,7 +18,26 @@ export async function flextToPdfBuffer(val: Flext, page: Page, options: Obj = {}
     const helpers = options?.helpers ?? null;
     const html = await flextToFilteredHtml(val, data, helpers);
 
-    return htmlToPdfBuffer(html, page, options);
+
+    // Getting the margins
+
+    const marginsStr = val?.margins?.trim() ?? null;
+    const [ topMarginStr, rightMarginStr, bottomMarginStr, leftMarginStr ] = marginsStr?.split(' ') ?? [];
+    const marginsObj = options?.margins ?? {};
+    const topMargin = marginsObj?.top ?? null;
+    const rightMargin = marginsObj?.right ?? null;
+    const bottomMargin = marginsObj?.bottom ?? null;
+    const leftMargin = marginsObj?.left ?? null;
+
+    const margins = {
+        top: topMarginStr ?? topMargin,
+        right: rightMarginStr ?? topMarginStr ?? rightMargin,
+        bottom: bottomMarginStr ?? topMarginStr ?? bottomMargin,
+        left: leftMarginStr ?? rightMarginStr ?? topMarginStr ?? leftMargin,
+    };
+
+
+    return htmlToPdfBuffer(html, page, { ...options, margins });
 }
 
 export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
