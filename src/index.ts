@@ -1,27 +1,21 @@
 import { chromium, Browser, Page } from 'playwright-core';
-import { Flext } from '@trustme24/flext';
-import { Obj, PDF, Flext2Pdf, Flext2PdfHandler, FlextTemplate2PdfHandler, Flext2PdfClearHandler } from '@/types';
-import { htmlToFiltered, htmlToPdfBuffer } from '@/lib';
+import { PDF, Flext2Pdf, Flext2PdfHandler, FlextTemplate2PdfHandler, Flext2PdfClearHandler } from '@/types';
+import { hbsToPdfBuffer } from '@/lib';
+import Flext, { core } from '@trustme24/flext';
 
 
 // Functions
 
-export async function flextToFilteredHtml(val: Flext, data?: Obj, helpers?: Obj): Promise<string> {
-    const html = val.getHtml(data, helpers);
-    const css = await val.getCss(data, helpers);
+export async function flextToPdfBuffer(val: core.types.ProcessorInterface, _page: Page, options: core.types.Obj = {}): Promise<Buffer> {
 
-    return htmlToFiltered(html, { css });
-}
+    // Getting the template
 
-export async function flextToPdfBuffer(val: Flext, page: Page, options: Obj = {}): Promise<Buffer> {
-    const data = options?.data ?? null;
-    const helpers = options?.helpers ?? null;
-    const html = await flextToFilteredHtml(val, data, helpers);
+    const template = await val?.assets?.__template?.text();
 
 
     // Getting the margins
 
-    const marginsStr = val?.margins?.trim() ?? null;
+    const marginsStr = (val as any)?.margins?.trim() ?? null;
     const [ topMarginStr, rightMarginStr, bottomMarginStr, leftMarginStr ] = marginsStr?.split(' ') ?? [];
     const marginsObj = options?.margins ?? {};
     const topMargin = marginsObj?.top ?? null;
@@ -37,7 +31,7 @@ export async function flextToPdfBuffer(val: Flext, page: Page, options: Obj = {}
     };
 
 
-    return htmlToPdfBuffer(html, page, { ...options, margins });
+    return await hbsToPdfBuffer(template, _page, { ...options, margins });
 }
 
 export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
@@ -47,9 +41,9 @@ export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
     // Defining the functions
 
     const hbsToPdf: FlextTemplate2PdfHandler = async (val: string, options: any = {}): Promise<PDF> => {
-        const page: Page = options?.page ?? await browser.newPage();
+        const _page: Page = options?.page ?? await browser.newPage();
         const data = options?.data ?? null;
-        const isCustomPage = !!options?.page;
+        const isPagePassed = !!options?.page;
 
 
         // Getting the Flext
@@ -61,29 +55,35 @@ export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
 
         // Getting the PDF
 
-        const result = await flextToPdfBuffer(flext, page, options);
+        let result: PDF | null = null;
 
-        if (!isCustomPage) await page.close();
+        try { result = await flextToPdfBuffer(flext, _page, options); }
+        catch (e: any) { throw e; }
+        finally { if (!isPagePassed) await _page.close(); }
+
+
+        // Doing some checks
+
+        if (!isPagePassed) await _page.close();
 
 
         return result;
     };
 
-    const flextToPdf: Flext2PdfHandler = async (val: Flext | string, options: any = {}): Promise<PDF> => {
+    const flextToPdf: Flext2PdfHandler = async (val: core.types.ProcessorInterface | string, options: any = {}): Promise<PDF> => {
 
         // If the value is a string
 
-        if (typeof val === 'string')
-            return await hbsToPdf(val, options);
+        if (typeof val === 'string') return await hbsToPdf(val, options);
 
 
         // If the value is Flext
 
-        const page: Page = options?.page ?? await browser.newPage();
-        const result = await flextToPdfBuffer(val, page, options);
-        const isCustomPage = !!options?.page;
+        const _page: Page = options?.page ?? await browser.newPage();
+        const result = await flextToPdfBuffer(val, _page, options);
+        const isPagePassed = !!options?.page;
 
-        if (!isCustomPage) await page.close();
+        if (!isPagePassed) await _page.close();
 
 
         return result;
@@ -98,6 +98,6 @@ export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {
 }
 
 
-export { htmlToFiltered };
+export { PDF, Flext2Pdf, Flext2PdfHandler, FlextTemplate2PdfHandler, Flext2PdfClearHandler, hbsToPdfBuffer };
 
 export default flext2pdf;

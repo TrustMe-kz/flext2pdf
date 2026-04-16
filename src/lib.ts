@@ -1,8 +1,15 @@
 import { Page } from 'playwright-core';
-import baseHtml from './base.html.tpl';
+import { core } from '@trustme24/flext';
+import flextStr from '@/flext.js.txt';
+import pageText from '@/page.tpl';
+import baseHtml from '@/base.html.tpl';
 
 
 // Constants
+
+export const DEFAULT_PAGE_LANG = 'en';
+
+export const DEFAULT_PAGE_TITLE = 'Unknown';
 
 export const DEFAULT_FORMAT = 'A4';
 
@@ -11,23 +18,23 @@ export const DEFAULT_MARGINS = 0;
 
 // Functions
 
-export function htmlToFiltered(val: string, options: any = {}): string {
+export function page(val: string = '', options: any = {}): string {
 
     // Getting the options
 
-    const lang = options?.lang ?? 'en';
-    const title = options?.title ?? 'Unknown';
-    const css = options?.css ?? '';
-    const meta = options?.meta ?? '';
+    const lang = options?.lang ?? DEFAULT_PAGE_LANG;
+    const title = options?.title ?? DEFAULT_PAGE_TITLE;
+    const css = options?.css || '';
+    const meta = options?.meta || '';
 
 
     // Filtering the data
 
-    let result: string = baseHtml;
+    let result: string = String(baseHtml);
 
-    const filter = (name: string, val1: string|number): void => {
+    const filter = (name: string, _val: string|number): void => {
         const newName = name?.toUpperCase() ?? null;
-        result = result.replace('{' + newName + '}', String(val1));
+        result = result.replace('{' + newName + '}', String(_val));
     }
 
     filter('lang', lang);
@@ -40,34 +47,68 @@ export function htmlToFiltered(val: string, options: any = {}): string {
     return result;
 }
 
-export async function htmlToPdfBuffer(val: string, page: Page, options: any = {}): Promise<Buffer> {
+export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj = {}): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
 
-    // Getting the options
+        // Getting the options
 
-    const format = options?.format ?? DEFAULT_FORMAT;
-    const margins = options?.margins ?? {};
-    const topMargin = margins?.top ?? DEFAULT_MARGINS;
-    const leftMargin = margins?.left ?? DEFAULT_MARGINS;
-    const rightMargin = margins?.right ?? DEFAULT_MARGINS;
-    const bottomMargin = margins?.bottom ?? DEFAULT_MARGINS;
-    const background = options?.background ?? true;
-
-
-    // Setting the page content
-
-    await page.setContent(val, {
-        waitUntil: 'load',
-    });
+        const data = options?.data ?? null;
+        const format = options?.format ?? DEFAULT_FORMAT;
+        const margins = options?.margins ?? {};
+        const topMargin = margins?.top ?? DEFAULT_MARGINS;
+        const leftMargin = margins?.left ?? DEFAULT_MARGINS;
+        const rightMargin = margins?.right ?? DEFAULT_MARGINS;
+        const bottomMargin = margins?.bottom ?? DEFAULT_MARGINS;
+        const background = Boolean(options?.background ?? true);
 
 
-    return await page.pdf({
-        format: format,
-        margin: {
-            top: topMargin,
-            left: leftMargin,
-            right: rightMargin,
-            bottom: bottomMargin,
-        },
-        printBackground: Boolean(background),
+        // Defining the functions
+
+        const serve = async (route) => await route.fulfill({
+            status: 200,
+            contentType: 'text/javascript',
+            body: flextStr,
+        });
+
+        const finish = async () => {
+            const result = await _page.pdf({
+                format: format,
+                margin: {
+                    top: topMargin,
+                    left: leftMargin,
+                    right: rightMargin,
+                    bottom: bottomMargin,
+                },
+                printBackground: background,
+            });
+
+            resolve(result);
+        };
+
+        const setup = async () => {
+
+            // Getting the HTML
+
+            let html = page(String(pageText));
+
+            const filter = (name: string, _val: string|number): void => {
+                const newName = name?.toUpperCase() ?? null;
+                html = html.replace('{' + newName + '}', String(_val));
+            }
+
+            filter('template', JSON.stringify(val).slice(1, -1));
+            filter('data', JSON.stringify(data));
+
+
+            // Setting up the page
+
+            await _page.route('http://flext2pdf/flext.js', serve);
+            await _page.exposeFunction('__error', reject);
+            await _page.exposeFunction('__finish', () => finish().catch(reject));
+            await _page.setContent(html, { waitUntil: 'load' });
+        }
+
+
+        setup().catch(reject);
     });
 }

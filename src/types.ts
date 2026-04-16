@@ -1,9 +1,7 @@
-import { Flext } from '@trustme24/flext';
+import { core } from '@trustme24/flext';
 
 
 // Base Data Types
-
-export type Obj<T = any> = Record<string, T>;
 
 export type PDF = Buffer;
 
@@ -20,7 +18,7 @@ export type Flext2Pdf = {
 
 // Base Callable Types
 
-export type Flext2PdfHandler = (val: Flext | string, options: any) => Promise<PDF>;
+export type Flext2PdfHandler = (val: core.types.ProcessorInterface | string, options: any) => Promise<PDF>;
 
 export type FlextTemplate2PdfHandler = (val: string, options: any) => Promise<PDF>;
 
