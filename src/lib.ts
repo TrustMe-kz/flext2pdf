@@ -92,11 +92,14 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
 
             let result = page(String(pageTemplate));
 
-            const filter = (_val: string, valRef: string|number): void => { result = result.replace(_val, String(valRef)); };
+            const filter = (name: string, _val: string|number): void => {
+                const newName = name?.toUpperCase() ?? null;
+                result = result.replace('<!--' + newName + '-->', String(_val));
+            }
 
-            filter(`"{TEMPLATE}"`, JSON.stringify(val));
-            filter('{/*DATA*/}', JSON.stringify(data));
-            filter('<!--HTML-->', html);
+            filter('template', val);
+            filter('data', JSON.stringify(data));
+            filter('html', html);
 
 
             // Setting up the page

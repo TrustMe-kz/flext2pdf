@@ -6,31 +6,31 @@
     internal error or malfunction.
 -->
 
+<template id="template"><!--TEMPLATE--></template>
+<template id="data"><!--DATA--></template>
+
 <main id="flext"><!--HTML--></main>
 
 <script type="module">
 import Flext from 'http://flext2pdf/flext.js';
 
 
-// Constants
-
-const TEMPLATE = "{TEMPLATE}";
-
-const DATA = {/*DATA*/};
-
-
 // Functions
 
 async function preview() {
 
-    // Getting the Flext
+    // Getting the data
 
-    const flext = new Flext().setTemplate(TEMPLATE).setData(DATA);
+    const template = document.getElementById('template').innerHTML || '';
+
+    const data = JSON.parse(document.getElementById('data').innerHTML ?? null);
+
+    const el = document.getElementById('flext');
 
 
     // Getting the HTML
 
-    const el = document.getElementById('flext');
+    const flext = new Flext().setTemplate(template).setData(data);
 
     el.innerHTML = flext.html;
 
@@ -43,6 +43,27 @@ async function preview() {
     styleEl.textContent = await flext.getCss();
 
     document.head.appendChild(styleEl);
+
+
+    // Waiting for the fonts
+
+    await document.fonts.ready;
+
+
+    // Waiting for the images
+
+    const images = [ ...document.images ].filter(i => !i.complete);
+
+    await Promise.all(images.map(i => new Promise(resolve => {
+        i.addEventListener('load', resolve, { once: true });
+        i.addEventListener('error', resolve, { once: true });
+    })));
+
+
+    // Waiting for the render
+
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
 }
 
 
@@ -50,5 +71,5 @@ async function preview() {
 
 window.addEventListener('load', function () {
     preview().then(window.__finish).catch(window.__error);
-});
+}, { once: true });
 </script>
