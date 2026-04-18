@@ -1,5 +1,6 @@
 import { Page } from 'playwright-core';
 import { core } from '@trustme24/flext';
+import he from 'he';
 import flextScript from '@/flext.js.txt';
 import pageTemplate from '@/page.tpl';
 import baseHtml from '@/base.html.tpl';
@@ -92,14 +93,11 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
 
             let result = page(String(pageTemplate));
 
-            const filter = (name: string, _val: string|number): void => {
-                const newName = name?.toUpperCase() ?? null;
-                result = result.replace('<!--' + newName + '-->', String(_val));
-            }
+            const filter = (_val: string, valRef: string|number): void => { result = result.replace(_val, String(valRef)); }
 
-            filter('template', val);
-            filter('data', JSON.stringify(data));
-            filter('html', html);
+            filter('<!--TEMPLATE-->', he.encode(val));
+            filter('{"DATA":""}', JSON.stringify(data));
+            filter('<!--HTML-->', html);
 
 
             // Setting up the page

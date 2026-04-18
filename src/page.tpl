@@ -7,7 +7,7 @@
 -->
 
 <template id="template"><!--TEMPLATE--></template>
-<template id="data"><!--DATA--></template>
+<script type="application/json" id="data">{"DATA":""}</script>
 
 <main id="flext"><!--HTML--></main>
 
@@ -21,9 +21,9 @@ async function preview() {
 
     // Getting the data
 
-    const template = document.getElementById('template').innerHTML || '';
+    const template = document.getElementById('template').content.textContent || '';
 
-    const data = JSON.parse(document.getElementById('data').innerHTML ?? null);
+    const data = JSON.parse(document.getElementById('data').textContent ?? null);
 
     const el = document.getElementById('flext');
 
