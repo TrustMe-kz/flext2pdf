@@ -17,11 +17,13 @@
     "./index.css": "./dist/index.css"
   },
   "bin": {
-    "flext2pdf": "./bin/run.mjs"
+    "flext2pdf": "./bin/flext2pdf.mjs"
   },
   "scripts": {
+    "sync:assets": "node bin/sync-assets.mjs",
     "build:types": "tsc && tsc-alias",
-    "build": "bin/build.mjs && npm run build:types",
+    "build-only": "bin/build.mjs && npm run build:types",
+    "build": "npm run sync:assets && npm run build-only",
     "prepublish": "npm run build"
   },
   "files": [
@@ -39,17 +41,17 @@
     "@babel/preset-env": "^7.29.2",
     "@babel/preset-typescript": "^7.28.5",
     "@handlebars/parser": "^2.2.2",
-    "@types/minimist": "^1.2.5",
     "@types/node": "^25.6.0",
     "esbuild": "^0.28.0",
     "esbuild-plugin-import-glob": "^0.1.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^6.0.3"
   },
+  "peerDependencies": {
+    "@trustme24/flext": "^2.0.3"
+  },
   "dependencies": {
-    "@trustme24/flext": "^2.0.3",
     "chromium-bidi": "^15.0.0",
-    "minimist": "^1.2.8",
     "playwright-core": "^1.59.1"
   }
 }
