@@ -11,6 +11,7 @@ export async function flextToPdfBuffer(val: core.types.ProcessorInterface, _page
     // Getting the template
 
     const template = await val?.assets?.__template?.text();
+    const html = val?.html ?? null;
 
 
     // Getting the margins
@@ -31,7 +32,7 @@ export async function flextToPdfBuffer(val: core.types.ProcessorInterface, _page
     };
 
 
-    return await hbsToPdfBuffer(template, _page, { ...options, margins });
+    return await hbsToPdfBuffer(template, _page, { ...options, html, margins });
 }
 
 export async function flext2pdf(options: any = {}): Promise<Flext2Pdf> {

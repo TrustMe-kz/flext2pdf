@@ -1,7 +1,7 @@
 import { Page } from 'playwright-core';
 import { core } from '@trustme24/flext';
-import flextStr from '@/flext.js.txt';
-import pageText from '@/page.tpl';
+import flextScript from '@/flext.js.txt';
+import pageTemplate from '@/page.tpl';
 import baseHtml from '@/base.html.tpl';
 
 
@@ -53,6 +53,7 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
         // Getting the options
 
         const data = options?.data ?? null;
+        const html = options?.html || '';
         const format = options?.format ?? DEFAULT_FORMAT;
         const margins = options?.margins ?? {};
         const topMargin = margins?.top ?? DEFAULT_MARGINS;
@@ -67,7 +68,7 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
         const serve = async (route) => await route.fulfill({
             status: 200,
             contentType: 'text/javascript',
-            body: flextStr,
+            body: flextScript,
         });
 
         const finish = async () => {
@@ -85,19 +86,17 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
             resolve(result);
         };
 
-        const setup = async () => {
+        const preview = async () => {
 
             // Getting the HTML
 
-            let html = page(String(pageText));
+            let result = page(String(pageTemplate));
 
-            const filter = (name: string, _val: string|number): void => {
-                const newName = name?.toUpperCase() ?? null;
-                html = html.replace('{' + newName + '}', String(_val));
-            }
+            const filter = (_val: string, valRef: string|number): void => { result = result.replace(_val, String(valRef)); };
 
-            filter('template', JSON.stringify(val).slice(1, -1));
-            filter('data', JSON.stringify(data));
+            filter(`"{TEMPLATE}"`, JSON.stringify(val));
+            filter('{/*DATA*/}', JSON.stringify(data));
+            filter('<!--HTML-->', html);
 
 
             // Setting up the page
@@ -105,10 +104,10 @@ export function hbsToPdfBuffer(val: string, _page: Page, options: core.types.Obj
             await _page.route('http://flext2pdf/flext.js', serve);
             await _page.exposeFunction('__error', reject);
             await _page.exposeFunction('__finish', () => finish().catch(reject));
-            await _page.setContent(html, { waitUntil: 'load' });
+            await _page.setContent(result, { waitUntil: 'load' });
         }
 
 
-        setup().catch(reject);
+        preview().catch(reject);
     });
 }

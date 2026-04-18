@@ -1,4 +1,12 @@
-<main id="flext"></main>
+<!--
+    This is the preview page of flext2pdf.
+
+    It is intended for internal use, so
+    if you see this, it may indicate an
+    internal error or malfunction.
+-->
+
+<main id="flext"><!--HTML--></main>
 
 <script type="module">
 import Flext from 'http://flext2pdf/flext.js';
@@ -8,12 +16,12 @@ import Flext from 'http://flext2pdf/flext.js';
 
 const TEMPLATE = "{TEMPLATE}";
 
-const DATA = {DATA};
+const DATA = {/*DATA*/};
 
 
 // Functions
 
-async function setup() {
+async function preview() {
 
     // Getting the Flext
 
@@ -34,12 +42,13 @@ async function setup() {
     styleEl.setAttribute('type', 'text/css');
     styleEl.textContent = await flext.getCss();
 
-    document.body.appendChild(styleEl);
-
-
-    window.__finish();
+    document.head.appendChild(styleEl);
 }
 
 
-setup().catch(window.__error);
+// Getting the preview
+
+window.addEventListener('load', function () {
+    preview().then(window.__finish).catch(window.__error);
+});
 </script>
