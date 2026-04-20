@@ -1,6 +1,6 @@
 {
   "name": "flext2pdf",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "A Powerful Templating Engine",
   "keywords": ["templates", "templating engine", "handlebars", "flext to pdf"],
   "repository": "https://github.com/TrustMe-kz/flext2pdf.git",
