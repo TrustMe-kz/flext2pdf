@@ -1,6 +1,6 @@
 {
   "name": "flext2pdf",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "A Powerful Templating Engine",
   "keywords": ["templates", "templating engine", "handlebars", "flext to pdf"],
   "repository": "https://github.com/TrustMe-kz/flext2pdf.git",
@@ -49,7 +49,7 @@
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "@trustme24/flext": "^2.0.7"
+    "@trustme24/flext": "^2.0.8"
   },
   "dependencies": {
     "chromium-bidi": "^15.0.0",
